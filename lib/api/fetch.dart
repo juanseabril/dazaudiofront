@@ -4,15 +4,18 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 
-import 'package:dazaudiofront/product.dart';
+import 'package:dazaudiofront/models/product.dart';
 import 'package:http/http.dart';
 
+import '../models/listproducts.dart';
+
 class ApiService {
-  String url = 'http://10.0.2.2:8000/product';
+  String url_products = 'http://10.0.2.2:8000/product';
+  String url_names = 'http://10.0.2.2:8000/listproducts';
 
   Future<List<Product>?> getProducts() async {
     try {
-      var response = await http.get(Uri.parse(url));
+      var response = await http.get(Uri.parse(url_products));
       if (response.statusCode == 200) {
         List<Product> _model = ProductFromJson(response.body);
         return _model;
@@ -32,7 +35,7 @@ class ApiService {
     };
 
     final Response response = await post(
-      Uri.parse(url),
+      Uri.parse(url_products),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -43,5 +46,18 @@ class ApiService {
     } else {
       throw Exception('Failed to post cases');
     }
+  }
+
+  Future<List?> getListProducts() async {
+    try {
+      var response = await http.get(Uri.parse(url_names));
+      if (response.statusCode == 200) {
+        List _model = listProductsFromJson(response.body);
+        return _model;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
   }
 }

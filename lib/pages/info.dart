@@ -1,7 +1,7 @@
-import 'package:dazaudiofront/product.dart';
+import 'package:dazaudiofront/models/product.dart';
 import 'package:flutter/material.dart';
 
-import 'fetch.dart';
+import '../api/fetch.dart';
 
 class ShowInfo extends StatefulWidget {
   const ShowInfo({Key? key}) : super(key: key);

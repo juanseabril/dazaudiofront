@@ -1,25 +1,26 @@
-import 'package:dazaudiofront/product.dart';
+import 'package:dazaudiofront/main.dart';
+import 'package:dazaudiofront/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:get/get.dart';
 
-import 'fetch.dart';
+import '../api/fetch.dart';
 
-class CreateProduct extends StatefulWidget {
-  CreateProduct({Key? key}) : super(key: key);
+class CreatePage extends StatefulWidget {
+  CreatePage({Key? key}) : super(key: key);
 
   @override
-  State<CreateProduct> createState() => _CreateProductState();
+  State<CreatePage> createState() => _CreatePageState();
 }
 
-class _CreateProductState extends State<CreateProduct> {
-  _CreateProductState();
+class _CreatePageState extends State<CreatePage> {
+  _CreatePageState();
 
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
-    print("Test123");
     return SafeArea(
       child: Scaffold(
         body: FormBuilder(
@@ -32,6 +33,7 @@ class _CreateProductState extends State<CreateProduct> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   FormBuilderTextField(
+                    style: const TextStyle(fontSize: 25),
                     name: 'Nombre',
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(errorText: 'asdf'),
@@ -49,6 +51,7 @@ class _CreateProductState extends State<CreateProduct> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                   FormBuilderTextField(
+                    style: const TextStyle(fontSize: 25),
                     keyboardType: TextInputType.number,
                     name: 'Compra',
                     validator: FormBuilderValidators.compose([
@@ -68,6 +71,7 @@ class _CreateProductState extends State<CreateProduct> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                   FormBuilderTextField(
+                    style: const TextStyle(fontSize: 25),
                     keyboardType: TextInputType.number,
                     name: 'Venta',
                     validator: FormBuilderValidators.compose([
@@ -84,7 +88,7 @@ class _CreateProductState extends State<CreateProduct> {
                         hintText: "Ingresa precio de venta del producto",
                         labelText: "Precio venta"),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.15),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.12),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       onPrimary: Colors.yellow,
@@ -96,15 +100,13 @@ class _CreateProductState extends State<CreateProduct> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        print(_formKey.currentState!.value['Nombre']);
-                        print(_formKey.currentState!.value['Compra']);
-                        print(_formKey.currentState!.value['Venta']);
                         ApiService().postProduct(Product(
                             productId: 1,
                             productName: _formKey.currentState!.value['Nombre'],
                             productBuy: _formKey.currentState!.value['Compra'],
                             productSell:
                                 _formKey.currentState!.value['Venta']));
+                        Get.back();
                       }
                     },
                     child: const Text('Guardar',
