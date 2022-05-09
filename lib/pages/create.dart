@@ -1,4 +1,5 @@
-import 'package:dazaudiofront/main.dart';
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:dazaudiofront/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -8,7 +9,7 @@ import 'package:get/get.dart';
 import '../api/fetch.dart';
 
 class CreatePage extends StatefulWidget {
-  CreatePage({Key? key}) : super(key: key);
+  const CreatePage({Key? key}) : super(key: key);
 
   @override
   State<CreatePage> createState() => _CreatePageState();
