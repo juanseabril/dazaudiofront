@@ -8,6 +8,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 
 import '../api/fetch.dart';
+import 'create.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  late List? _listProducts = [];
+  late List<String>? _listProducts = [];
 
   @override
   void initState() {
@@ -25,7 +26,8 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _getData() async {
-    _listProducts = (await ApiService().getListProducts())!;
+    _listProducts = (await ApiService().getListProducts())!.cast<String>();
+    _listProducts!.sort((String a, String b) => a.compareTo(b));
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
@@ -50,7 +52,7 @@ class _SearchPageState extends State<SearchPage> {
               onTap: () {
                 showSearch(
                   context: context,
-                  delegate: SearchProductDelegate(_listProducts!.cast()),
+                  delegate: SearchProductDelegate(_listProducts!),
                 );
               },
               title: Row(
@@ -100,7 +102,7 @@ class _SearchPageState extends State<SearchPage> {
             elevation: 8,
             splashColor: Colors.yellow,
             onPressed: () {
-              //Get.to(CreatePage());
+              //Get.to(const CreatePage());
             },
           ),
         );
