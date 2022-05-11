@@ -27,6 +27,11 @@ class _ShowInfoPageState extends State<ShowInfoPage> {
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
+  void _lateDelete(int id) async {
+    (await ApiService().deleteProduct(id));
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -182,11 +187,11 @@ class _ShowInfoPageState extends State<ShowInfoPage> {
                                         primary: Colors.red.shade400,
                                       ),
                                       child: Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 13),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 13),
                                         child: Row(
                                           children: [
-                                            Icon(Icons.delete),
+                                            const Icon(Icons.delete),
                                             SizedBox(
                                                 width: MediaQuery.of(context)
                                                         .size
@@ -199,24 +204,27 @@ class _ShowInfoPageState extends State<ShowInfoPage> {
                                           ],
                                         ),
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () {
+                                        _lateDelete(_productModel!.productId);
+                                        Get.back();
+                                      }),
                                   SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width * 0.1,
                                   ),
                                   ElevatedButton(
                                       child: Padding(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             vertical: 13, horizontal: 12),
                                         child: Row(
                                           children: [
-                                            Icon(Icons.edit),
+                                            const Icon(Icons.edit),
                                             SizedBox(
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
                                                     0.02),
-                                            Text(
+                                            const Text(
                                               "Editar",
                                               style: TextStyle(fontSize: 20),
                                             ),

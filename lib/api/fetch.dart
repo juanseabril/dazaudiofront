@@ -75,4 +75,16 @@ class ApiService {
     }
     return null;
   }
+
+  Future<ProductByName?> deleteProduct(int id) async {
+    try {
+      var response = await http.delete(Uri.parse("$url_products/$id"));
+      if (response.statusCode == 200) {
+        throw Exception('Producto eliminado');
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 }
