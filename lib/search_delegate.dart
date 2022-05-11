@@ -1,3 +1,4 @@
+import 'package:dazaudiofront/pages/info.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -79,6 +80,7 @@ class SearchProductDelegate extends SearchDelegate<String> {
             ),
             onTap: () {
               query = suggestions.elementAt(index);
+              Get.to(const ShowInfoPage(), arguments: {"name": query});
             },
             textColor: Colors.blue,
             tileColor: Colors.yellow,
